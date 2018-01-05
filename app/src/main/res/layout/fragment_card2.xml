@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/image"
+        android:layout_marginTop="40dp"
+        android:layout_centerInParent="true"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/cart"/>
+    <TextView
+        android:id="@+id/kong"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/image"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="购物车空空如也"/>
+    <Button
+        android:id="@+id/but"
+        android:layout_marginTop="10dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/kong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="去登陆"/>
+</RelativeLayout>
