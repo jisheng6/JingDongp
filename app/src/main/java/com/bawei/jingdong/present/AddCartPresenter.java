@@ -19,9 +19,9 @@ public class AddCartPresenter {
     }
 
 
-    public void getData(String pid) {
+    public void getData(String pid,String uid) {
 
-        addCartModel.getData(pid, new AddCartModelCallBack() {
+        addCartModel.getData(pid,uid, new AddCartModelCallBack() {
             @Override
             public void success(AddCartBean addCartBean) {
                 addCartViewCallBack.success(addCartBean);

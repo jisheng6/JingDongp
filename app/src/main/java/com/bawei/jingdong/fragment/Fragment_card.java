@@ -46,6 +46,8 @@ public class Fragment_card extends Fragment implements CareViewCallBack {
 
         SharedPreferences sp = getActivity().getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
         int uid = sp.getInt("uid", 0);
+
+        System.out.println("uid = " + uid);
         if (uid == 0) {
             View view1 = inflater.inflate(R.layout.fragment_card2, container, false);
             Button but = view1.findViewById(R.id.but);
@@ -66,7 +68,7 @@ public class Fragment_card extends Fragment implements CareViewCallBack {
             thirdSubmit = view.findViewById(R.id.third_submit);
             thirdPayLinear = view.findViewById(R.id.third_pay_linear);
             presenter = new CarePresenter(this);
-            presenter.getData();
+            presenter.getData(uid+"");
             adapter = new ShopAdapter(getActivity());
             LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
@@ -102,16 +104,7 @@ public class Fragment_card extends Fragment implements CareViewCallBack {
         Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
 
     }
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        presenter.getData();
-//    }
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        presenter.detach();
-//    }
+
     @OnClick(R.id.third_allselect)
     public void onViewClicked() {
 

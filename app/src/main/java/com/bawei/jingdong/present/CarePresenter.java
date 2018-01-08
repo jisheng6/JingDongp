@@ -16,8 +16,8 @@ public class CarePresenter {
         this.view = view;
         this.model = new CareModel();
     }
-    public void getData(){
-        model.getData(new CareModel.CareModelCallBack() {
+    public void getData(String uid){
+        model.getData(uid,new CareModel.CareModelCallBack() {
             @Override
             public void success(ShopBean bean) {
                 if(view != null){

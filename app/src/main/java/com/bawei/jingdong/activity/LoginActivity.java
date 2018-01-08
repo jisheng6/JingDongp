@@ -17,6 +17,7 @@ import com.bawei.jingdong.MainActivity;
 import com.bawei.jingdong.R;
 import com.bawei.jingdong.bao.IGeation;
 import com.bawei.jingdong.bean.LoginBean;
+import com.google.gson.Gson;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
@@ -34,6 +35,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Adminjs on 2017/12/28.
@@ -93,22 +95,21 @@ public class LoginActivity extends Activity {
                             public void onSubscribe(Disposable d) {
 
                             }
-
                             @Override
                             public void onNext(LoginBean loginBean) {
                                 String code = loginBean.getCode();
-                                int uid = loginBean.getData().getUid();
-                                String mobile = loginBean.getData().getMobile();
-                                SharedPreferences sp = getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor edit = sp.edit();
-                                edit.putString("name", mobile);
-                                edit.putInt("uid", uid);
-                                edit.commit();
-                                System.out.println("传值1" + edit.putString("name", mobile));
-                                System.out.println("传值2" + edit.putString("uid", uid + ""));
                                 if (code.equals("0")) {
                                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    int uid = loginBean.getData().getUid();
+                                    String mobile = loginBean.getData().getMobile();
+                                    SharedPreferences sp = getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor edit = sp.edit();
+                                    edit.putString("name", mobile);
+                                    edit.putInt("uid", uid);
+                                    edit.commit();
+                                    System.out.println("传值1" + edit.putString("name", mobile));
+                                    System.out.println("传值2" + edit.putString("uid", uid + ""));
                                     startActivity(intent);
                                 } else {
                                     Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();

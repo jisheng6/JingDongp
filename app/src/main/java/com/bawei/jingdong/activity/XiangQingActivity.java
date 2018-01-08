@@ -1,19 +1,27 @@
 package com.bawei.jingdong.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bawei.jingdong.MainActivity;
 import com.bawei.jingdong.R;
 import com.bawei.jingdong.bao.GlideImageLoader;
 import com.bawei.jingdong.bean.AddCartBean;
+import com.bawei.jingdong.bean.EventBean;
 import com.bawei.jingdong.model.AddCartModelCallBack;
 import com.bawei.jingdong.present.AddCartPresenter;
 import com.bawei.jingdong.view.AddCartViewCallBack;
 import com.youth.banner.Banner;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +50,16 @@ public class XiangQingActivity extends Activity implements AddCartModelCallBack,
     private AddCartPresenter addCartPresenter;
     private int pid;
     private String pid1;
+    private String image1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_xiang);
         ButterKnife.bind(this);
+
         Bundle buddle = getIntent().getExtras();
-        String image1 = buddle.getString("image");
+        image1 = buddle.getString("image");
 
         pid1 = buddle.getString("pid");
 
@@ -78,7 +89,9 @@ public class XiangQingActivity extends Activity implements AddCartModelCallBack,
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.jia:
-                addCartPresenter.getData(pid1);
+                SharedPreferences sp = getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
+                int uid = sp.getInt("uid", 0);
+                addCartPresenter.getData(pid1,uid+"");
                 break;
             case R.id.gou:
                 Toast.makeText(XiangQingActivity.this, "正在跳转....", Toast.LENGTH_SHORT).show();
@@ -89,6 +102,8 @@ public class XiangQingActivity extends Activity implements AddCartModelCallBack,
     @Override
     public void success(AddCartBean addCartBean) {
         Toast.makeText(this,""+addCartBean.getMsg(),Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(XiangQingActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override

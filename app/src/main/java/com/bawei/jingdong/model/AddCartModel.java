@@ -18,10 +18,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddCartModel {
 
-  public void getData(String pid, final AddCartModelCallBack addCartModelCallBack) {
+  public void getData(String pid,String uid, final AddCartModelCallBack addCartModelCallBack) {
         Map<String,String> map = new HashMap<>();
         map.put("source","android");
-        map.put("uid","3859");
+        map.put("uid",uid+"");
         map.put("token","2FC3EF31EA25696D2715A971ADE38DE1");
         map.put("pid",pid);
 

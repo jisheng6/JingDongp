@@ -90,10 +90,10 @@ public class Fragment_fclass extends Fragment implements FenleiListViewCallBack,
         //右边的 presenter
         rightPresenter = new FenleiRightPresenter(this);
         //进入页面默认传cid为1 显示
-        rightPresenter.getData(String.valueOf(cid));
+        rightPresenter.getData(cid);
         //右侧的大recy
         fenleiRightRecy.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
+        fenleiRightRecy.setAdapter(fenLeiRightRecyBigAdapter);
         return view;
     }
 
@@ -108,7 +108,6 @@ public class Fragment_fclass extends Fragment implements FenleiListViewCallBack,
                 int cid = fenLeiLeftBean.getData().get(i).getCid();
                 rightPresenter.getData(String.valueOf(cid));//右侧的请求
                 // Toast.makeText(getActivity(),String.valueOf(cid),Toast.LENGTH_LONG).show();
-
             }
         });
     }
@@ -120,8 +119,8 @@ public class Fragment_fclass extends Fragment implements FenleiListViewCallBack,
 
     @Override
     public void success(FenLeiRightBean fenLeiRightBean) {
+
         fenLeiRightRecyBigAdapter.addData(fenLeiRightBean.getData());
-        fenleiRightRecy.setAdapter(fenLeiRightRecyBigAdapter);
     }
 
     @Override

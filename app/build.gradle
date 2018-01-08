@@ -30,14 +30,16 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.9'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.squareup.okio:okio:1.13.0'
+
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.facebook.fresco:fresco:1.5.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+    compile "io.reactivex.rxjava2:rxjava:2.1.1"
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     compile project(path: ':libzxing')
@@ -46,4 +48,7 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:1.0.6'
     implementation files('libs/mta-sdk-1.6.2.jar')
     implementation files('libs/open_sdk_r5793.jar')
+    compile 'com.jcodecraeer:xrecyclerview:1.3.2'
+    compile 'org.greenrobot:eventbus:3.1.1'
+
 }

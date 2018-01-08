@@ -1,6 +1,5 @@
 package com.bawei.jingdong.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,23 +17,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.bawei.jingdong.MainActivity;
 import com.bawei.jingdong.R;
 import com.bawei.jingdong.activity.SearchActivity;
 import com.bawei.jingdong.adapter.GriAdapter;
 import com.bawei.jingdong.adapter.GridAdapter;
 import com.bawei.jingdong.adapter.MyGridAdapter;
-import com.bawei.jingdong.bao.GlideImageLoader;
 import com.bawei.jingdong.bao.OnItemClickListener;
 import com.bawei.jingdong.bean.Bean;
 import com.bawei.jingdong.present.GridPresent;
 import com.bawei.jingdong.view.GridView;
 import com.bumptech.glide.Glide;
-import com.google.zxing.client.result.VINParsedResult;
 import com.stx.xhb.xbanner.XBanner;
 import com.stx.xhb.xbanner.transformers.Transformer;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
-import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;

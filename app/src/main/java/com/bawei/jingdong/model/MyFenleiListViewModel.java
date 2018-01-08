@@ -1,5 +1,7 @@
 package com.bawei.jingdong.model;
 
+import android.util.Log;
+
 import com.bawei.jingdong.bao.IGeation;
 import com.bawei.jingdong.bean.FenLeiLeftBean;
 
@@ -26,6 +28,7 @@ public class MyFenleiListViewModel {
                 .subscribe(new Consumer<FenLeiLeftBean>() {
                     @Override
                     public void accept(FenLeiLeftBean fenLeiLeftBean) throws Exception {
+                        Log.d("log", "accept: -----------"+fenLeiLeftBean.getMsg());
                         fenleiListModelCallBack.success(fenLeiLeftBean);
                     }
                 });
