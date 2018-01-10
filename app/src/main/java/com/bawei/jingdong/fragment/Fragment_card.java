@@ -21,17 +21,27 @@ import com.bawei.jingdong.R;
 import com.bawei.jingdong.activity.LoginActivity;
 import com.bawei.jingdong.adapter.ShopAdapter;
 import com.bawei.jingdong.bean.ShopBean;
+import com.bawei.jingdong.bean.UpdataBean;
 import com.bawei.jingdong.present.CarePresenter;
+import com.bawei.jingdong.present.UpDataPresenter;
 import com.bawei.jingdong.view.CareViewCallBack;
+import com.bawei.jingdong.view.IUpDataView;
+import com.liaoinstan.springview.container.DefaultFooter;
+import com.liaoinstan.springview.widget.SpringView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.tencent.open.utils.Global.getSharedPreferences;
 
 /**
  * Created by Adminjs on 2017/12/26.
  */
 
-public class Fragment_card extends Fragment implements CareViewCallBack {
+public class Fragment_card extends Fragment implements CareViewCallBack{
     private CarePresenter presenter;
     private ShopAdapter adapter;
     private CheckBox checkBoxAll;
@@ -39,15 +49,14 @@ public class Fragment_card extends Fragment implements CareViewCallBack {
     private TextView thirdTotalnum;
     private TextView thirdSubmit;
     private LinearLayout thirdPayLinear;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         SharedPreferences sp = getActivity().getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
-        int uid = sp.getInt("uid", 0);
+        final int uid = sp.getInt("uid", 0);
 
         System.out.println("uid = " + uid);
+
         if (uid == 0) {
             View view1 = inflater.inflate(R.layout.fragment_card2, container, false);
             Button but = view1.findViewById(R.id.but);
@@ -67,6 +76,7 @@ public class Fragment_card extends Fragment implements CareViewCallBack {
             thirdTotalnum = view.findViewById(R.id.third_totalnum);
             thirdSubmit = view.findViewById(R.id.third_submit);
             thirdPayLinear = view.findViewById(R.id.third_pay_linear);
+
             presenter = new CarePresenter(this);
             presenter.getData(uid+"");
             adapter = new ShopAdapter(getActivity());
@@ -75,20 +85,21 @@ public class Fragment_card extends Fragment implements CareViewCallBack {
 
             thirdRecyclerview.setLayoutManager(manager);
             thirdRecyclerview.setAdapter(adapter);
-
-
+            adapter.notifyDataSetChanged();
             adapter.setListener(new ShopAdapter.UpdateUiListener() {
                 @Override
                 public void setTotal(String total, String num, boolean allCheck) {
-
-
                     checkBoxAll.setChecked(allCheck);
                     thirdTotalnum.setText(num);
                     thirdTotalprice.setText(total);
                 }
             });
-
-
+            checkBoxAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    adapter.selectAll(checkBoxAll.isChecked());
+                }
+            });
             return view;
         }
     }
@@ -96,7 +107,6 @@ public class Fragment_card extends Fragment implements CareViewCallBack {
     @Override
     public void success(ShopBean bean) {
         adapter.add(bean);
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -104,11 +114,9 @@ public class Fragment_card extends Fragment implements CareViewCallBack {
         Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
 
     }
-
-    @OnClick(R.id.third_allselect)
-    public void onViewClicked() {
-
-        adapter.selectAll(checkBoxAll.isChecked());
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.detach();
     }
-
 }

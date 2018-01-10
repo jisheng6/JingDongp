@@ -11,12 +11,8 @@ import android.widget.TextView;
 import com.bawei.jingdong.R;
 import com.bawei.jingdong.activity.XiangQingActivity;
 import com.bawei.jingdong.bao.OnItemClickListener;
-import com.bawei.jingdong.bean.EventBean;
 import com.bawei.jingdong.bean.NetDataBean;
 import com.bumptech.glide.Glide;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  *适配器

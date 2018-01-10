@@ -1,6 +1,7 @@
 package com.bawei.jingdong.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,11 @@ import android.widget.Toast;
 import com.bawei.jingdong.R;
 import com.bawei.jingdong.bean.DeleteBean;
 import com.bawei.jingdong.bean.ShopBean;
+import com.bawei.jingdong.bean.UpdataBean;
 import com.bawei.jingdong.present.DeleteCartPresenter;
+import com.bawei.jingdong.present.UpDataPresenter;
 import com.bawei.jingdong.view.DeleteCartViewCallBack;
+import com.bawei.jingdong.view.IUpDataView;
 import com.bawei.jingdong.view.PlusView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -27,18 +31,19 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.tencent.open.utils.Global.getSharedPreferences;
+
 /**
  * Created by Adminjs on 2017/11/21.
  */
-public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> implements DeleteCartViewCallBack{
+public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> implements DeleteCartViewCallBack,IUpDataView{
 
     private Context context;
-
     private List<ShopBean.DataBean.ListBean> list;
     // 存放 商家的id 和 商家名称
     private Map<String,String> map = new HashMap<>();
     DeleteCartPresenter deleteCartPresenter = new DeleteCartPresenter(this);
-
+    UpDataPresenter upDataPresenter = new UpDataPresenter(this);
     public ShopAdapter(Context context) {
         this.context = context;
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context));
@@ -104,10 +109,13 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> i
 
     @Override
     public void onBindViewHolder(final IViewHolder holder, final int position) {
-
-
+//        SharedPreferences sp = context.getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor edit = sp.edit();
+//        edit.putString("sellerid", String.valueOf(list.get(position).getSellerid()));
+//        edit.putString("pid", String.valueOf(list.get(position).getPid()));
+//        edit.putString("num", String.valueOf(list.get(position).getNum()));
+//        edit.commit();
         // 显示商品图片
-
         if(list.get(position).getIsFirst() == 1){
             //显示商家
             holder.shop_checkbox.setVisibility(View.VISIBLE);
@@ -262,6 +270,11 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> i
 
     @Override
     public void failure() {
+
+    }
+
+    @Override
+    public void success(UpdataBean bean) {
 
     }
 

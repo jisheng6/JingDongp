@@ -28,8 +28,13 @@ public class MyFenleiListViewModel {
                 .subscribe(new Consumer<FenLeiLeftBean>() {
                     @Override
                     public void accept(FenLeiLeftBean fenLeiLeftBean) throws Exception {
-                        Log.d("log", "accept: -----------"+fenLeiLeftBean.getMsg());
+                        Log.d("log", "accept: -----------" + fenLeiLeftBean.getMsg());
                         fenleiListModelCallBack.success(fenLeiLeftBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
                     }
                 });
     }

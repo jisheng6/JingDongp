@@ -32,6 +32,11 @@ public class FenleiRightModel {
                     public void accept(FenLeiRightBean fenLeiRightBean) throws Exception {
                         callBack.success(fenLeiRightBean);
                     }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
+                    }
                 });
     }
 

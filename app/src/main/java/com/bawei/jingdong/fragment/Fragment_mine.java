@@ -48,9 +48,36 @@ public class Fragment_mine extends Fragment {
         if (name == null)
         {
             login.setText("未登录");
+            headIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
         }else{
             login.setText(name);
+            headIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getActivity(), "用户已登录", Toast.LENGTH_SHORT).show();
 
+                }
+            });
+            login.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getActivity(), "用户已登录", Toast.LENGTH_SHORT).show();
+
+                }
+            });
         }
         return view;
     }
@@ -61,17 +88,9 @@ public class Fragment_mine extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.head_iv, R.id.login, R.id.back})
+    @OnClick({R.id.back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.head_iv:
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.login:
-                Intent intentt = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intentt);
-                break;
             case R.id.back:
                 SharedPreferences sp= getActivity().getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
                 sp.edit().clear().commit();

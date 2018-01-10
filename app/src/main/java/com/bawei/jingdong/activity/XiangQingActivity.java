@@ -15,9 +15,12 @@ import com.bawei.jingdong.R;
 import com.bawei.jingdong.bao.GlideImageLoader;
 import com.bawei.jingdong.bean.AddCartBean;
 import com.bawei.jingdong.bean.EventBean;
+import com.bawei.jingdong.bean.UpdataBean;
 import com.bawei.jingdong.model.AddCartModelCallBack;
 import com.bawei.jingdong.present.AddCartPresenter;
+import com.bawei.jingdong.present.UpDataPresenter;
 import com.bawei.jingdong.view.AddCartViewCallBack;
+import com.bawei.jingdong.view.IUpDataView;
 import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,7 +37,7 @@ import butterknife.OnClick;
  * Created by Adminjs on 2017/12/28.
  */
 
-public class XiangQingActivity extends Activity implements AddCartModelCallBack, AddCartViewCallBack {
+public class XiangQingActivity extends Activity implements AddCartModelCallBack, AddCartViewCallBack{
     @BindView(R.id.image)
     Banner banner;
     @BindView(R.id.name)
@@ -51,6 +54,7 @@ public class XiangQingActivity extends Activity implements AddCartModelCallBack,
     private int pid;
     private String pid1;
     private String image1;
+    private String name1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,7 @@ public class XiangQingActivity extends Activity implements AddCartModelCallBack,
         image1 = buddle.getString("image");
 
         pid1 = buddle.getString("pid");
+
 
         String name1 = buddle.getString("name");
         String subhead1 = buddle.getString("subhead");
@@ -82,7 +87,6 @@ public class XiangQingActivity extends Activity implements AddCartModelCallBack,
         subhead.setText(subhead1);
         price.setText("￥" + price1);
         addCartPresenter = new AddCartPresenter(this);
-
     }
 
     @OnClick({R.id.jia, R.id.gou})

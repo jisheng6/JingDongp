@@ -9,6 +9,7 @@ import com.bawei.jingdong.bean.LoginBean;
 import com.bawei.jingdong.bean.RegistBean;
 import com.bawei.jingdong.bean.SelectCartBean;
 import com.bawei.jingdong.bean.ShopBean;
+import com.bawei.jingdong.bean.UpdataBean;
 
 import java.util.Map;
 
@@ -44,6 +45,7 @@ public interface Api {
 
     @GET("/product/addCart")
     Call<AddCartBean> addCart(@QueryMap Map<String, String> map);
+
     @GET("product/getCarts")
     Call<SelectCartBean> selectCart(@QueryMap Map<String, String> map);
     ///http://120.27.23.105/user/login
@@ -55,4 +57,8 @@ public interface Api {
     //https://www.zhaoapi.cn/product/deleteCart?uid=1650&pid=58
     @GET("/product/deleteCart")
     Call<DeleteBean> deleteCart(@QueryMap Map<String,String> map);
+
+    //更新购物车
+    @GET("product/updateCarts")
+    Observable<UpdataBean> getUpData(@Query("uid") String uid, @Query("sellerid") String sellerid, @Query("pid") String pid, @Query("selected") String selected, @Query("num") String num, @Query("source") String source);
 }

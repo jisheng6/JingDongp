@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bawei.jingdong.R;
 
@@ -33,7 +34,7 @@ public class PlusView extends LinearLayout {
         super(context);
     }
 
-    public PlusView(Context context, @Nullable AttributeSet attrs) {
+    public PlusView(final Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
 
@@ -60,6 +61,8 @@ public class PlusView extends LinearLayout {
                         if(listener != null){
                             listener.click(mCount);
                         }
+                    }else{
+                        Toast.makeText(context, "数量不能小于1", Toast.LENGTH_SHORT).show();
                     }
 
 
