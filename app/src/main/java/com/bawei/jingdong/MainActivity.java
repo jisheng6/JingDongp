@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.bawei.jingdong.adapter.MyAdapter;
 import com.bawei.jingdong.bao.IsNetworkable;
+import com.bawei.jingdong.bao.MyViewPager;
 import com.bawei.jingdong.fragment.Fragment_faxian;
 import com.bawei.jingdong.fragment.Fragment_fclass;
 import com.bawei.jingdong.fragment.Fragment_mine;
@@ -26,7 +27,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends FragmentActivity {
 
     @BindView(R.id.pager)
-    ViewPager pager;
+    MyViewPager pager;
     @BindView(R.id.radioGroup)
     RadioGroup radioGroup;
     private ArrayList<Fragment> list;
@@ -45,6 +46,7 @@ public class MainActivity extends FragmentActivity {
         list.add(new Fragment_mine());
         MyAdapter adapter = new MyAdapter(getSupportFragmentManager(), list);
         pager.setAdapter(adapter);
+
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -61,12 +63,13 @@ public class MainActivity extends FragmentActivity {
 
             }
         });
-        pager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
-        });
+//        pager.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                return true;
+//            }
+//        });
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -91,8 +94,7 @@ public class MainActivity extends FragmentActivity {
         });
         pager.setOffscreenPageLimit(5);
     }
-
-        @Override
+    @Override
         public boolean onKeyDown(int keyCode, KeyEvent event) {
             if (keyCode == KeyEvent.KEYCODE_BACK) {
                 exit();
