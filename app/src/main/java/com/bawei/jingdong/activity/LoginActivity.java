@@ -10,15 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bawei.jingdong.MainActivity;
 import com.bawei.jingdong.R;
 import com.bawei.jingdong.bao.IGeation;
+import com.bawei.jingdong.bao.MD5Util;
 import com.bawei.jingdong.bean.LoginBean;
-import com.google.gson.Gson;
 import com.tencent.connect.UserInfo;
 import com.tencent.connect.auth.QQToken;
 import com.tencent.connect.common.Constants;
@@ -36,7 +35,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by Adminjs on 2017/12/28.
@@ -57,28 +55,42 @@ public class LoginActivity extends Activity {
     ImageView xmm;
     private static final String TAG = "MainActivity";
     private static final String APP_ID = "1105602574";//官方获取的APPID
+    @BindView(R.id.zhuan)
+    Button zhuan;
+    @BindView(R.id.denglu_md)
+    TextView dengluMd;
     private Tencent mTencent;
     private BaseUiListener mIUiListener;
     private UserInfo mUserInfo;
+    private String pa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        mTencent = Tencent.createInstance(APP_ID,LoginActivity.this.getApplicationContext());
-
+        mTencent = Tencent.createInstance(APP_ID, LoginActivity.this.getApplicationContext());
+        final String trim = dengluPwd.getText().toString().trim();
+        zhuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String secretSign = MD5Util.getStringMD5(trim);
+               // String secretSign = MD5Util.getStringMD5_16(trim);
+                dengluMd.setText(secretSign);
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == Constants.REQUEST_LOGIN){
-            Tencent.onActivityResultData(requestCode,resultCode,data,mIUiListener);
+        if (requestCode == Constants.REQUEST_LOGIN) {
+            Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @OnClick({R.id.denglu_cha, R.id.denglu_btn, R.id.zhuce,R.id.xmm})
+    @OnClick({R.id.denglu_cha, R.id.denglu_btn, R.id.zhuce, R.id.xmm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.denglu_cha:
@@ -87,7 +99,7 @@ public class LoginActivity extends Activity {
                 break;
             case R.id.denglu_btn:
                 String p = dengluWord.getText().toString().trim();
-                String pa = dengluPwd.getText().toString().trim();
+                pa = dengluPwd.getText().toString().trim();
                 IGeation.api.getLogin(p, pa)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -96,6 +108,7 @@ public class LoginActivity extends Activity {
                             public void onSubscribe(Disposable d) {
 
                             }
+
                             @Override
                             public void onNext(LoginBean loginBean) {
                                 String code = loginBean.getCode();
@@ -136,10 +149,13 @@ public class LoginActivity extends Activity {
             case R.id.xmm:
                 mIUiListener = new BaseUiListener();
                 //all表示获取所有权限
-                mTencent.login(LoginActivity.this,"all", mIUiListener);
+                mTencent.login(LoginActivity.this, "all", mIUiListener);
                 break;
         }
+
+
     }
+
     private class BaseUiListener implements IUiListener {
 
         @Override
@@ -152,23 +168,23 @@ public class LoginActivity extends Activity {
                 String accessToken = obj.getString("access_token");
                 String expires = obj.getString("expires_in");
                 mTencent.setOpenId(openID);
-                mTencent.setAccessToken(accessToken,expires);
+                mTencent.setAccessToken(accessToken, expires);
                 QQToken qqToken = mTencent.getQQToken();
-                mUserInfo = new UserInfo(getApplicationContext(),qqToken);
+                mUserInfo = new UserInfo(getApplicationContext(), qqToken);
                 mUserInfo.getUserInfo(new IUiListener() {
                     @Override
                     public void onComplete(Object response) {
-                        Log.e(TAG,"登录成功"+response.toString());
+                        Log.e(TAG, "登录成功" + response.toString());
                     }
 
                     @Override
                     public void onError(UiError uiError) {
-                        Log.e(TAG,"登录失败"+uiError.toString());
+                        Log.e(TAG, "登录失败" + uiError.toString());
                     }
 
                     @Override
                     public void onCancel() {
-                        Log.e(TAG,"登录取消");
+                        Log.e(TAG, "登录取消");
 
                     }
                 });
@@ -188,7 +204,5 @@ public class LoginActivity extends Activity {
             Toast.makeText(LoginActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
 
         }
-
     }
-
 }

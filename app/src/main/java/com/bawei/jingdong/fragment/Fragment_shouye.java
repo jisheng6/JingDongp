@@ -55,6 +55,7 @@ public class Fragment_shouye extends Fragment implements GridView {
     android.widget.GridView gvFragment;
     private List<String> listT = new ArrayList<>();
     private List<Integer> imgT = new ArrayList<>();
+    private List<Bean.DataBean> adt = new ArrayList<>();
     //  private String path = "http://120.27.23.105/ad/getAd";
     private ArrayList<String> list;
     private RecyclerView recyclerView;
@@ -102,21 +103,11 @@ public class Fragment_shouye extends Fragment implements GridView {
         unbinder = ButterKnife.bind(this, view);
 
         list = new ArrayList<>();
-        list.add("https://www.zhaoapi.cn/images/quarter/ad1.png");
-        list.add("https://www.zhaoapi.cn/images/quarter/ad2.png");
-        list.add("https://www.zhaoapi.cn/images/quarter/ad3.png");
-        list.add("https://www.zhaoapi.cn/images/quarter/ad4.png");
-        banner.setData(list,null);
-        // XBanner适配数据
-        banner.setmAdapter(new XBanner.XBannerAdapter() {
-            @Override
-            public void loadBanner(XBanner banner, View view, int position) {
-                Glide.with(getActivity()).load(list.get(position)).into((ImageView) view);
-            }
-        });
-        // 设置XBanner页面切换的时间，即动画时长
-        banner.setPageChangeDuration(1000);
-        banner.setPageTransformer(Transformer.Cube);    //立体旋转
+//        list.add("https://www.zhaoapi.cn/images/quarter/ad1.png");
+//        list.add("https://www.zhaoapi.cn/images/quarter/ad2.png");
+//        list.add("https://www.zhaoapi.cn/images/quarter/ad3.png");
+//        list.add("https://www.zhaoapi.cn/images/quarter/ad4.png");
+
 
         ViewFlipper vf = view.findViewById(R.id.view_filpper);
         vf.addView(View.inflate(getActivity(),R.layout.item_paomadeng,null));
@@ -209,6 +200,23 @@ public class Fragment_shouye extends Fragment implements GridView {
     public void success(Bean bean) {
         adapter.addData(bean);
         griAdapter.addDa(bean);
+
+        adt =  bean.getData();
+        for (int i=0;i<adt.size();i++){
+            list.add(adt.get(i).getIcon());
+        }
+        banner.setData(list,null);
+        // XBanner适配数据
+        banner.setmAdapter(new XBanner.XBannerAdapter() {
+            @Override
+            public void loadBanner(XBanner banner, View view, int position) {
+                Glide.with(getActivity()).load(list.get(position)).into((ImageView) view);
+            }
+        });
+        // 设置XBanner页面切换的时间，即动画时长
+        banner.setPageChangeDuration(1000);
+        banner.setPageTransformer(Transformer.Cube);    //立体旋转
+
     }
 
     @Override

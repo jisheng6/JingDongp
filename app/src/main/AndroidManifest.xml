@@ -38,7 +38,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".activity.SearchActivity"/>
-        <activity android:name="com.xys.libzxing.zxing.activity.CaptureActivity"/>
         <activity android:name=".activity.XiangQingActivity"/>
         <activity android:name=".activity.LoginActivity"/>
         <activity android:name=".activity.RegisterActivity"/>
