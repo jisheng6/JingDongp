@@ -55,10 +55,10 @@ public class LoginActivity extends Activity {
     ImageView xmm;
     private static final String TAG = "MainActivity";
     private static final String APP_ID = "1105602574";//官方获取的APPID
-    @BindView(R.id.zhuan)
-    Button zhuan;
-    @BindView(R.id.denglu_md)
-    TextView dengluMd;
+//    @BindView(R.id.zhuan)
+//    Button zhuan;
+//    @BindView(R.id.denglu_md)
+//    TextView dengluMd;
     private Tencent mTencent;
     private BaseUiListener mIUiListener;
     private UserInfo mUserInfo;
@@ -71,14 +71,14 @@ public class LoginActivity extends Activity {
         ButterKnife.bind(this);
         mTencent = Tencent.createInstance(APP_ID, LoginActivity.this.getApplicationContext());
         final String trim = dengluPwd.getText().toString().trim();
-        zhuan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String secretSign = MD5Util.getStringMD5(trim);
-               // String secretSign = MD5Util.getStringMD5_16(trim);
-                dengluMd.setText(secretSign);
-            }
-        });
+//        zhuan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String secretSign = MD5Util.getStringMD5(trim);
+//               // String secretSign = MD5Util.getStringMD5_16(trim);
+//                dengluMd.setText(secretSign);
+//            }
+//        });
     }
 
     @Override

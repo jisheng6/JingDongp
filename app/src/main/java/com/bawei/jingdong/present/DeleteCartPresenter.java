@@ -18,8 +18,8 @@ public class DeleteCartPresenter {
         this.deleteCartViewCallBack = deleteCartViewCallBack;
     }
 
-    public void delete(String pid) {
-        deleteCartModel.delete(pid, new DeleteCartModelCallBack() {
+    public void delete(String pid,String uid) {
+        deleteCartModel.delete(pid,uid, new DeleteCartModelCallBack() {
             @Override
             public void success(DeleteBean deleteBean) {
             deleteCartViewCallBack.success(deleteBean);

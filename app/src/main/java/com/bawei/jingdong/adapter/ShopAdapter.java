@@ -109,12 +109,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> i
 
     @Override
     public void onBindViewHolder(final IViewHolder holder, final int position) {
-//        SharedPreferences sp = context.getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
-//        SharedPreferences.Editor edit = sp.edit();
-//        edit.putString("sellerid", String.valueOf(list.get(position).getSellerid()));
-//        edit.putString("pid", String.valueOf(list.get(position).getPid()));
-//        edit.putString("num", String.valueOf(list.get(position).getNum()));
-//        edit.commit();
         // 显示商品图片
         if(list.get(position).getIsFirst() == 1){
             //显示商家
@@ -195,8 +189,9 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> i
                 int pid1 = list.get(position).getPid();
                 String pid = String.valueOf(pid1);
 
-
-                deleteCartPresenter.delete(pid);
+                SharedPreferences sp = context.getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
+                int uid = sp.getInt("uid", 0);
+                deleteCartPresenter.delete(pid,uid+"");
                 list.remove(position);
 
                 setFirst(list);

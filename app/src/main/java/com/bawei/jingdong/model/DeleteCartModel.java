@@ -19,10 +19,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DeleteCartModel {
 
-    public void delete(String pid, final DeleteCartModelCallBack deleteCartModelCallBack) {
+    public void delete(String pid,String uid, final DeleteCartModelCallBack deleteCartModelCallBack) {
         Map<String,String> map = new HashMap<>();
         map.put("source","android");
-        map.put("uid","3859");
+        map.put("uid",uid);
         map.put("pid",pid);
 
         IGeation.api.deleteCart(map).enqueue(new Callback<DeleteBean>() {
